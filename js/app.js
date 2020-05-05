@@ -112,7 +112,38 @@ document.addEventListener('DOMContentLoaded',navigationBuilder());
 
 // Add class 'active' to section when near top of viewport
 
+const offset = (section) => {
+    return Math.floor(section.getBoundingClientRect().top);
+};
 
+//Remove Active Class
+const removeClass = (section) => {
+    section.classList.remove("your-active-class");
+};
+
+//Add Active Class
+const addClass = (condition,section) => {
+    if(condition){
+        section.classList.add('your-active-class');
+    }
+};
+
+//Implementing The Actual Function
+
+const sectionActivation = () =>{
+    sectionTags.forEach(section => {
+        const elementOffset=offset(section);
+
+        inviewport = () => elementOffset<=150 && elementOffset>=-150;
+
+        removeClass(section);
+        addClass(inviewport(),section);
+    })
+}
+
+//Adding Event Listener
+
+window.addEventListener('scroll',sectionActivation);
 // Scroll to anchor ID using scrollTO event
 
 
